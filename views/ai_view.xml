@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_note_note_form_inherit_ai" model="ir.ui.view">
+        <field name="name">note.note.form.inherit.ai</field>
+        <field name="model">note.note</field>
+        <field name="inherit_id" ref="note.view_note_note_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_generate_ai_content" 
+                        string="Mejorar con IA" 
+                        type="object" 
+                        class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

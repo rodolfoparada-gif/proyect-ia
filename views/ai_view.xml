@@ -5,20 +5,15 @@
         <field name="inherit_id" ref="note.view_note_note_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                
                 <button name="action_create_information" 
                         string="Crear Contenido con IA" 
                         type="object" 
                         class="oe_highlight"
-                        icon="fa-magic"
-                        [cite_start]help="Genera información nueva basada en el contenido actual de la nota [cite: 12, 13]"/>
-
+                        [cite_start]icon="fa-magic"/> [cite: 12, 13]
                 <button name="action_edit_existing_content" 
                         string="Editar con IA" 
                         type="object" 
-                        icon="fa-pencil"
-                        [cite_start]help="Mejora el estilo, redacción y ortografía del texto actual [cite: 14]"/>
-                        
+                        [cite_start]icon="fa-pencil"/> [cite: 14]
             </xpath>
         </field>
     </record>

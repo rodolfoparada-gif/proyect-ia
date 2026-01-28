@@ -4,20 +4,13 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-class AiDocumentEditor(models.Model):
-    _inherit = 'note.note'
+class AiContactEditor(models.Model):
+    _inherit = 'res.partner' # Ahora heredamos de Contactos
 
     def _call_ai_api(self, system_prompt, user_content):
-        """Llamada centralizada a OpenAI"""
-        # IMPORTANTE: Reemplaza con tu API Key real
-        api_key = "TU_API_KEY_AQUI" 
+        api_key = "TU_API_KEY_REAL" # Reemplaza con tu clave de OpenAI
         url = "https://api.openai.com/v1/chat/completions"
-        
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
-
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"}
         data = {
             "model": "gpt-4o-mini",
             "messages": [
@@ -26,38 +19,28 @@ class AiDocumentEditor(models.Model):
             ],
             "temperature": 0.7
         }
-
         try:
             response = requests.post(url, json=data, headers=headers, timeout=15)
             if response.status_code == 200:
-                result = response.json()
-                return result['choices'][0]['message']['content']
-            else:
-                _logger.error(f"Error en API IA: {response.text}")
-                return False
-        except Exception as e:
-            _logger.error(f"Falla de conexión con la IA: {e}")
+                return response.json()['choices'][0]['message']['content']
+            return False
+        except Exception:
             return False
 
     def action_create_information(self):
-        """Genera información nueva"""
         for record in self:
-            source_text = record.memo or "una nota nueva"
-            system_p = "Eres un asistente que crea información detallada y profesional."
-            user_p = f"Basado en este concepto, crea un documento completo: {source_text}"
-            
+            source_text = record.comment or "un contacto nuevo"
+            system_p = "Eres un asistente profesional."
+            user_p = f"Crea una descripción profesional para este contacto: {source_text}"
             ai_response = self._call_ai_api(system_p, user_p)
             if ai_response:
-                # Quitamos etiquetas HTML simples si la IA las envía
-                record.write({'memo': ai_response})
+                record.write({'comment': ai_response})
 
     def action_edit_existing_content(self):
-        """Mejora el contenido actual"""
         for record in self:
-            if record.memo:
-                system_p = "Eres un editor profesional de documentos. Mejora la redacción y ortografía."
-                user_p = f"Corrige y mejora este texto: {record.memo}"
-                
-                edited_content = self._call_ai_api(system_p, user_p)
-                if edited_content:
-                    record.write({'memo': edited_content})
+            if record.comment:
+                system_p = "Eres un editor experto."
+                user_p = f"Mejora este texto: {record.comment}"
+                edited = self._call_ai_api(system_p, user_p)
+                if edited:
+                    record.write({'comment': edited})

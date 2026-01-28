@@ -1,20 +1,18 @@
 <odoo>
-    <record id="view_note_note_form_inherit_ai" model="ir.ui.view">
-        <field name="name">note.note.form.inherit.ai</field>
-        <field name="model">note.note</field>
-        <field name="inherit_id" ref="note.view_note_note_form"/>
+    <record id="view_partner_form_inherit_ai" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.ai</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-          <xpath expr="//header" position="inside">
-    <button name="action_create_information" 
-            string="Crear Contenido con IA" 
-            type="object" 
-            class="oe_highlight"
-            icon="fa-magic"/>
-    <button name="action_edit_existing_content" 
-            string="Editar con IA" 
-            type="object" 
-            icon="fa-pencil"/>
-</xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_create_information" 
+                        string="IA: Generar Perfil" 
+                        type="object" 
+                        class="oe_highlight"/>
+                <button name="action_edit_existing_content" 
+                        string="IA: Mejorar Texto" 
+                        type="object"/>
+            </xpath>
         </field>
     </record>
 </odoo>

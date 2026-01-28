@@ -1,8 +1,7 @@
 {
     'name': 'IA Editor Pro',
     'version': '1.0',
-    'summary': 'Generador de contenido inteligente',
-    'category': 'Extra Tools', # Cambia a esta categoría oficial
+    'category': 'Sales', # Cámbialo a 'Sales' temporalmente para que Odoo lo reconozca como App de negocio
     'author': 'Rodolfo Parada',
     'depends': ['base', 'mail'],
     'data': [
@@ -10,7 +9,7 @@
         'views/ai_view.xml',
     ],
     'installable': True,
-    'application': True,    # ESTO HACE QUE APAREZCA EL BOTÓN INSTALAR
-    'auto_install': False,  # Evita que se instale solo
+    'application': True,    # ESTO ES LO QUE GENERA EL BOTÓN
+    'auto_install': False,
     'license': 'LGPL-3',
 }

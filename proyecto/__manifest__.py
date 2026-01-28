@@ -3,13 +3,13 @@
     'version': '1.0',
     'author': 'Rodolfo Parada',
     'category': 'Tools',
-    'summary': 'Genera y edita contenido usando IA en Contactos para todo el equipo',
+    'summary': 'App independiente para gestión de perfiles con IA',
     'depends': ['base', 'mail'],
     'data': [
-        'security/ir.model.access.csv', # ARCHIVO NUEVO
+        'security/ir.model.access.csv',
         'views/ai_view.xml',
     ],
     'installable': True,
-    'application': True,
+    'application': True, # Esto es clave para que aparezca como App
     'license': 'LGPL-3',
 }

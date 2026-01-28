@@ -8,8 +8,6 @@
     'depends': [
         'base',      # Requerido siempre
         'mail',      # Para heredar del chatter y mensajes
-        'documents', # Para el módulo de Documentos (versión Enterprise)
-        'knowledge', # Para el módulo de Conocimiento
         'note',      # Si quieres usarlo en Notas (como el ejemplo anterior)
     ],
 

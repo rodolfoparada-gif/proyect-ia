@@ -3,7 +3,7 @@
     'version': '1.0',
     'category': 'Productivity',
     'summary': 'Genera y edita contenido usando IA en Notas',
-    'depends': ['base', 'mail', 'note'],
+    'depends': ['base', 'mail'],
     'data': [
         'views/ai_view.xml',
     ],

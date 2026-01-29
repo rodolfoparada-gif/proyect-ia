@@ -24,7 +24,7 @@
     'author': 'Rodolfo Parada',
     'depends': ['base', 'web'], # 'web' es vital en producción
     'data': [
-        'security/ir.model.accessgit.csv',
+        'security/ir.model.access.csv',
         'views/ai_view.xml',
     ],
     'installable': True,

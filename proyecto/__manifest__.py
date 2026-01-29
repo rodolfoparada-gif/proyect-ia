@@ -9,7 +9,7 @@
     'depends': ['base', 'web'], # 'web' es vital en producción
     'data': [
         'security/ir.model.access.csv',
-        # 'views/ai_view.xml',
+        'views/ai_view.xml',
     ],
     'installable': True,
     'application': True,

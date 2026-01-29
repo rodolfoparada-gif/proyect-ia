@@ -11,7 +11,7 @@ class AiContactEditor(models.Model):
     def _call_ai_api(self, system_prompt, user_content):
         api_key = self.env['ir.config_parameter'].sudo().get_param('openai_api_key')
         if not api_key:
-            raise UserError(_("Configura 'openai_api_key' en Parámetros del Sistema."))
+            raise UserError(_("Mi Señor, debe configurar la 'openai_api_key' en Parámetros del Sistema."))
 
         url = "https://api.openai.com/v1/chat/completions"
         headers = {
@@ -36,15 +36,18 @@ class AiContactEditor(models.Model):
             return False
 
     def action_generate_ai_description(self):
+        """ Función para CREAR INFORMACIÓN """
         for record in self:
-            source = record.comment or record.name or "contacto"
-            res = self._call_ai_api("Eres un asistente profesional.", f"Perfil para: {source}")
+            source = record.name or "documento"
+            res = self._call_ai_api("Eres un redactor experto.", f"Crea una descripción profesional detallada para: {source}")
             if res:
                 record.comment = res
 
     def action_improve_ai_text(self):
+        """ Función para EDITAR/MEJORAR DOCUMENTO """
         for record in self:
-            if record.comment:
-                res = self._call_ai_api("Eres un editor experto.", f"Mejora esto: {record.comment}")
-                if res:
-                    record.comment = res
+            if not record.comment:
+                raise UserError(_("No hay contenido que editar, Mi Señor."))
+            res = self._call_ai_api("Eres un editor de estilo.", f"Mejora profesionalmente este texto: {record.comment}")
+            if res:
+                record.comment = res

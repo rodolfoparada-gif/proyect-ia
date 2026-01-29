@@ -2,7 +2,7 @@
     'name': 'IA Editor Pro',
     'version': '1.0',
     'summary': 'Generador de contenido inteligente',
-    'category': 'Extra Tools', # Cambia a esta categoría oficial
+    'category': 'Productivity', # Cambia a esta categoría oficial
     'author': 'Rodolfo Parada',
     'depends': ['base', 'mail','contacts'],
     'data': [

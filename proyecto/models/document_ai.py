@@ -22,7 +22,7 @@ class IaDocument(models.Model):
             raise UserError(_("no he encontrado su 'openai_api_key'. "
                             "Por favor, configúrela en Ajustes > Técnico > Parámetros del sistema."))
 
-        url = "https://api.openai.com/v1/chat/completions"
+        url = "https://api.freellm.com/v1chat/completions"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {api_key}"

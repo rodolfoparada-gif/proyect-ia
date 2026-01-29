@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="action_ai_editor_pro" model="ir.actions.act_window">
-        <field name="name">Editor de Documentos IA</field>
-        <field name="res_model">res.partner</field>
-        <field name="view_mode">list,form</field>
-        <field name="context">{'create': False}</field>
-    </record>
-
-    <menuitem id="menu_ai_editor_root" 
-              name="IA Editor Pro" 
-              action="action_ai_editor_pro" 
-              sequence="1"/>
-
-    <record id="view_partner_form_ai_pro" model="ir.ui.view">
-        <field name="name">res.partner.form.ai.pro</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+    <record id="view_ia_document_list" model="ir.ui.view">
+        <field name="name">ia.document.list</field>
+        <field name="model">ia.document</field>
         <field name="arch" type="xml">
-            <xpath expr="//form" position="attributes">
-                <attribute name="create">0</attribute>
-            </xpath>
-
-            <xpath expr="//sheet" position="before">
-                <header>
-                    <button name="action_generate_ai_description" 
-                            string="CREAR INFORMACIÓN" 
-                            type="object" 
-                            class="btn-primary"/>
-                    <button name="action_improve_ai_text" 
-                            string="EDITAR DOCUMENTO" 
-                            type="object" 
-                            class="btn-secondary"/>
-                </header>
-            </xpath>
+            <list string="Mis Documentos">
+                <field name="name"/>
+                <field name="date_created"/>
+            </list>
         </field>
     </record>
+
+    <record id="view_ia_document_form" model="ir.ui.view">
+        <field name="name">ia.document.form</field>
+        <field name="model">ia.document</field>
+        <field name="arch" type="xml">
+            <form string="Editor IA">
+                <header>
+                    <button name="action_generate_info" string="CREAR INFORMACIÓN" type="object" class="btn-primary"/>
+                    <button name="action_edit_doc" string="EDITAR DOCUMENTO" type="object" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Título del Documento"/>
+                        <h1><field name="name" placeholder="Ej: Reporte de Ventas..."/></h1>
+                    </div>
+                    <group>
+                        <field name="content" widget="html" options="{'style-inline': true}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ia_doc_main" model="ir.actions.act_window">
+        <field name="name">Mis Documentos IA</field>
+        <field name="res_model">ia.document</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_ia_pro_root" name="IA Editor Pro" action="action_ia_doc_main" sequence="1"/>
 </odoo>

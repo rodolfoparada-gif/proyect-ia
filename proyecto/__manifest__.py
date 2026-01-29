@@ -19,7 +19,8 @@
     'name': 'IA Editor Pro',
     'version': '1.2',
     'summary': 'Editor de documentos independiente con IA',
-    'category': 'Tools',
+    # 'category': 'Tools',
+     'category': 'Productivity',
     'author': 'Rodolfo Parada',
     'depends': ['base'], # Eliminamos 'contacts'
     'data': [

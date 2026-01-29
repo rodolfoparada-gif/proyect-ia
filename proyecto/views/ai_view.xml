@@ -13,19 +13,21 @@
               sequence="1"/>
 
     <record id="view_partner_form_ai_inherit" model="ir.ui.view">
-        <field name="name">res.partner.form.ai.buttons</field>
+        <field name="name">res.partner.form.ai.inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <button name="action_generate_ai_description" 
-                        string="IA: Generar Descripción" 
-                        type="object" 
-                        class="btn-primary"/>
-                <button name="action_improve_ai_text" 
-                        string="IA: Mejorar Texto" 
-                        type="object" 
-                        class="btn-secondary"/>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_generate_ai_description" 
+                            string="IA: Generar Descripción" 
+                            type="object" 
+                            class="btn-primary"/>
+                    <button name="action_improve_ai_text" 
+                            string="IA: Mejorar Texto" 
+                            type="object" 
+                            class="btn-secondary"/>
+                </header>
             </xpath>
         </field>
     </record>

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_ia_doc_main" model="ir.actions.act_window">
+        <field name="name">Mis Documentos IA</field>
+        <field name="res_model">ia.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cree su primer documento, Mi Señor.
+            </p>
+        </field>
+    </record>
+
     <record id="view_ia_document_list" model="ir.ui.view">
         <field name="name">ia.document.list</field>
         <field name="model">ia.document</field>
@@ -23,21 +34,18 @@
                 <sheet>
                     <div class="oe_title">
                         <label for="name" string="Título del Documento"/>
-                        <h1><field name="name" placeholder="Ej: Reporte de Ventas..."/></h1>
+                        <h1><field name="name" placeholder="Ej: Reporte de Estrategia..."/></h1>
                     </div>
                     <group>
-                        <field name="content" widget="html" options="{'style-inline': true}"/>
+                        <field name="content" widget="html" options="{'style-inline': true}" nolabel="1"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <record id="action_ia_doc_main" model="ir.actions.act_window">
-        <field name="name">Mis Documentos IA</field>
-        <field name="res_model">ia.document</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <menuitem id="menu_ia_pro_root" name="IA Editor Pro" action="action_ia_doc_main" sequence="1"/>
+    <menuitem id="menu_ia_pro_root" 
+              name="IA Editor Pro" 
+              action="action_ia_doc_main" 
+              sequence="1"/>
 </odoo>

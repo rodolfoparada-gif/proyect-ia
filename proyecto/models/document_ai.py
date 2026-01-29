@@ -9,7 +9,6 @@ class AiContactEditor(models.Model):
     _inherit = 'res.partner'
 
     def _call_ai_api(self, system_prompt, user_content):
-        # Buscamos la clave en Parámetros del Sistema
         api_key = self.env['ir.config_parameter'].sudo().get_param('openai_api_key')
         
         if not api_key:
@@ -39,14 +38,15 @@ class AiContactEditor(models.Model):
         except Exception as e:
             raise UserError(_("Error de conexión: %s") % str(e))
 
-    def action_create_information(self):
+    # NOMBRES CORREGIDOS PARA COINCIDIR CON EL XML
+    def action_generate_ai_description(self):
         for record in self:
-            source = record.comment or "un nuevo contacto"
+            source = record.comment or record.name or "un nuevo contacto"
             ai_content = self._call_ai_api("Eres un asistente profesional.", f"Redacta un perfil profesional para: {source}")
             if ai_content:
                 record.write({'comment': ai_content})
 
-    def action_edit_existing_content(self):
+    def action_improve_ai_text(self):
         for record in self:
             if not record.comment:
                 raise UserError(_("No hay texto en Notas Internas para mejorar."))

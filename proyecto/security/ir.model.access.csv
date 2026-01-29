@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_res_partner_ai,res.partner.ai,base.model_res_partner,base.group_user,1,1,1,1
+access_ia_document,ia.document,model_ia_document,base.group_user,1,1,1,1

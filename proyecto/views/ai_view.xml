@@ -10,7 +10,7 @@
                             string="Crear Información" 
                             type="object" 
                             class="oe_highlight" 
-                            confirm="¿Desea generar contenido nuevo basado en el título, Mi Señor?"/>
+                            confirm="¿Desea generar contenido nuevo basado en el título?"/>
                     
                     <button name="action_edit_doc" 
                             string="Editar Documento (Mejorar)" 
@@ -57,7 +57,7 @@
         <field name="res_model">ia.document</field>
         <field name="view_mode">list,form</field> <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Cree su primer documento, Mi Señor.
+                Cree su primer documento.
             </p>
             <p>
                 Escriba un título y use el botón 'Crear Información' para que la IA trabaje por usted.

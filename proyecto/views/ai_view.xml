@@ -42,22 +42,20 @@
         </field>
     </record>
 
-    <record id="view_ia_document_tree" model="ir.ui.view">
-        <field name="name">ia.document.tree</field>
+    <record id="view_ia_document_list" model="ir.ui.view">
+        <field name="name">ia.document.list</field>
         <field name="model">ia.document</field>
         <field name="arch" type="xml">
-            <tree string="Mis Documentos IA">
-                <field name="name"/>
+            <list string="Mis Documentos IA"> <field name="name"/>
                 <field name="date_created"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_ia_document" model="ir.actions.act_window">
         <field name="name">Documentos con IA</field>
         <field name="res_model">ia.document</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
+        <field name="view_mode">list,form</field> <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Cree su primer documento, Mi Señor.
             </p>

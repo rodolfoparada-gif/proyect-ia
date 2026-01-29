@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_ai_contacts" model="ir.actions.act_window">
-        <field name="name">Asistente IA</field>
+        <field name="name">Editor IA</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_ai_root" name="IA Editor Pro" action="action_ai_contacts" sequence="1"/>
 
-    <record id="view_partner_form_ai" model="ir.ui.view">
-        <field name="name">res.partner.form.ai</field>
+    <record id="view_partner_form_ai_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.ai.inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">

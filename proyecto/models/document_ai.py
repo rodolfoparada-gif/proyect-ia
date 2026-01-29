@@ -1,19 +1,25 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 import requests
-import time # Para manejar el delay de 5 segundos si es necesario
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class IaDocument(models.Model):
     _name = 'ia.document'
-    _inherit = ['ia.document'] # Mantenemos lo anterior
+    _description = 'Documento de Inteligencia Artificial'
 
-    def _call_ai_api(self, system_prompt, user_content):
-        """ Conexión con API Free LLM """
-        # Buscamos la nueva API Key en Parámetros del Sistema
+    name = fields.Char(string='Título', required=True, default="Nuevo Documento")
+    content = fields.Html(string='Contenido', sanitize=False)
+    date_created = fields.Date(string='Fecha', default=fields.Date.today)
+
+    def _call_ai_api(self, prompt_text):
+        """ Conexión con el Endpoint de apifreellm.com """
+        # Obtenemos su nueva API Key (la que empieza con apf_...)
         api_key = self.env['ir.config_parameter'].sudo().get_param('openai_api_key')
         
         if not api_key:
-            raise UserError(_("configure su nueva API Key de FreeLLM en Parámetros del Sistema."))
+            raise UserError(_("configure la nueva API Key en Parámetros del Sistema."))
 
         url = "https://apifreellm.com/api/v1/chat"
         headers = {
@@ -21,28 +27,50 @@ class IaDocument(models.Model):
             "Authorization": f"Bearer {api_key}"
         }
         
-        # Combinamos el sistema y el usuario ya que esta API usa un mensaje simple
-        full_message = f"{system_prompt}\n\nPregunta: {user_content}"
-        
+        # Estructura según la documentación de FreeLLM
         data = {
-            "message": full_message,
+            "message": prompt_text,
             "model": "apifreellm"
         }
 
         try:
-            response = requests.post(url, json=data, headers=headers, timeout=30)
+            # Enviamos la solicitud POST
+            response = requests.post(url, json=data, headers=headers, timeout=60)
             
             if response.status_code == 200:
-                res_json = response.json()
-                # Según el ejemplo, el texto viene en la clave 'response'
-                return res_json.get('response')
+                res_data = response.json()
+                # Extraemos 'response' del JSON recibido
+                return res_data.get('response', 'Sin respuesta de la IA')
             
             elif response.status_code == 429:
-                raise UserError(_("debemos esperar 5 segundos (Límite del plan gratis)."))
+                raise UserError(_("Límite alcanzado. Por favor espere 5 segundos."))
             
             elif response.status_code == 401:
-                raise UserError(_("La API Key de FreeLLM no es válida."))
+                raise UserError(_("API Key de FreeLLM no válida. Verifíquela en Ajustes."))
+                
+            return False
+        except Exception as e:
+            _logger.error(f"Error en la conexión: {e}")
+            return False
+
+    def action_generate_info(self):
+        """ Botón: CREAR INFORMACIÓN """
+        for record in self:
+            if not record.name or record.name == "Nuevo Documento":
+                raise UserError(_("escriba un título para el documento."))
             
-            return False
-        except Exception:
-            return False
+            prompt = f"Escribe un informe profesional y detallado sobre: {record.name}"
+            res = self._call_ai_api(prompt)
+            if res:
+                record.content = res
+
+    def action_edit_doc(self):
+        """ Botón: MEJORAR TEXTO """
+        for record in self:
+            if not record.content:
+                raise UserError(_("No hay contenido para mejorar, Mi Señor."))
+            
+            prompt = f"Mejora la redacción y ortografía del siguiente texto: {record.content}"
+            res = self._call_ai_api(prompt)
+            if res:
+                record.content = res

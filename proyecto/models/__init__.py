@@ -1,1 +1,1 @@
-from . import document_ai
+from . import ai_document

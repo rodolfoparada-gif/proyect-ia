@@ -22,7 +22,7 @@
     # 'category': 'Tools',
      'category': 'Productivity',
     'author': 'Rodolfo Parada',
-    'depends': ['base'], # Eliminamos 'contacts'
+    'depends': ['base','web'], # Eliminamos 'contacts'
     'data': [
         'security/ir.model.access.csv',
         'views/ai_view.xml',
